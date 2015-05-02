@@ -13,7 +13,8 @@ class Draconia(gamename: String) extends StateBasedGame(gamename) {
   def initStatesList(gc: GameContainer) = {
     gc.setShowFPS(true)
     addState(Menu)
-    addState(Draconia.game)
+    addState(Overworld)
+    addState(Battle)
     addState(Options)
   }
 }
@@ -24,7 +25,6 @@ object Draconia extends App {
   GameConfig.Width = 800
   GameConfig.Height = 600
   GameConfig.FrameRate = 60
-  lazy val game = new OverworldState
 
   try {
     import GameConfig._

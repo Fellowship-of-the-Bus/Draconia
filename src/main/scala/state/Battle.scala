@@ -9,7 +9,7 @@ import game.IDMap._
 import ui.Image
 import lib.game.GameConfig.{Width,Height}
 
-class OverworldState extends BasicGameState {
+object Battle extends BasicGameState {
   var gameState = new Game
 
   var pauseTimer = 0
@@ -43,5 +43,5 @@ class OverworldState extends BasicGameState {
     
   }
 
-  def getID() = Mode.OverworldID
+  def getID() = Mode.BattleID
 }

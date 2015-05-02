@@ -11,7 +11,7 @@ object IDMap{
   val imageMap = Map(
     FotBLogoID -> "img/FotB-Logo.png",
     GameOverID -> "img/GameOver.png",
-    12345 -> Array("img/Foo.png", "img/Foo2.png")
+    12345 -> Array("img/GameOver.png", "img/FotB-Logo.png")
   )
 
   lazy val images: Map[Int, ui.Drawable] = imageMap.map { x =>
