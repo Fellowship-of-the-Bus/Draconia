@@ -27,6 +27,21 @@ object Draconia extends App {
   GameConfig.FrameRate = 60
 
   try {
+    val xmlFile = Source.fromFile("data/items.xml")
+    val xml = XML.load(xmlFile)
+    val items = (xml \ "consumable" \ "item")
+
+    for {
+      EDIT THIS
+    }
+    .map {
+      x =>
+        val name = (x \ "@name").toString
+        val value = (x \ "@value").toString.toInt
+        val multiply = (x \ "@type").toString == "multiply"
+        (name, new Effect(name, value, multiply))
+    }
+
     import GameConfig._
     Native.loadLibraryFromJar()
     val appgc = new AppGameContainer(new Draconia("Draconia"))
