@@ -1,5 +1,4 @@
 import android.Keys._
-android.Plugin.androidBuild
 
 lazy val commonSettings = Seq(
   name := "draconia",
@@ -7,8 +6,8 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.11.7",
   javacOptions ++= Seq(
     "-encoding", "utf8",
-    "-source", "1.6",
-    "-target", "1.6",
+    "-source", "1.7",
+    "-target", "1.7",
     "-Xlint"
   ),
   scalacOptions ++= Seq(
@@ -16,7 +15,7 @@ lazy val commonSettings = Seq(
     "-deprecation",
     "-feature",
     "-encoding", "utf8",
-    "-target:jvm-1.6",
+    "-target:jvm-1.7",
     "-optimize",
     "-Xlint",
     "-Yinline-warnings",
@@ -33,11 +32,11 @@ lazy val commonSettings = Seq(
     )(Resolver.ivyStylePatterns)
   ),
   libraryDependencies ++= Seq(
-    "org.scalatest" %% "scalatest" % "2.2.5" % "test",
+    "org.scalatest" %% "scalatest" % "2.2.6" % "test",
     "junit" % "junit" % "4.12" % "test",
-    "com.propensive" %% "rapture-json-jackson" % "2.0.0-M2",
-    "com.github.pathikrit" %% "better-files" % "2.14.0",
-    "com.github.fellowship_of_the_bus" %% "fellowship-of-the-bus-lib" % "0.3-SNAPSHOT" changing()
+    "com.propensive" %% "rapture-json-jackson" % "2.0.0-M3"
+    // "com.github.pathikrit" %% "better-files" % "2.14.0",
+    // "com.github.fellowship_of_the_bus" %% "fellowship-of-the-bus-lib" % "0.3-SNAPSHOT" changing()
   )
 )
 
@@ -48,40 +47,41 @@ val androidProguard = """
   -keep class scala.collection.SeqLike { public protected *; }
 """
 
-lazy val androidSettings = Seq(
-  version := "0.1." + androidVersionCode,
-  // scalaVersion          := "2.10.1",
-  versionCode           := androidVersionCode,
-  // AndroidKeys.platformName in Android   := "android-23",
-  // useProguard in Android    := true,
-  // proguardOption in Android := androidProguard,
-  // keyalias in Android   := "change-me"
-  libraryDependencies ++= Seq(
-    "org.scaloid" %% "scaloid" % "4.1",
-    "org.apache.maven" % "maven-ant-tasks" % "2.1.3" % "test",
-    "org.robolectric" % "robolectric" % "3.0" % "test",
-    "com.novocode" % "junit-interface" % "0.11" % "test"
+lazy val androidSettings = commonSettings ++
+  // AndroidProject.androidSettings ++
+  // TypedResources.settings ++
+  // AndroidManifestGenerator.settings ++
+  // AndroidMarketPublish.settings ++
+  androidBuild ++
+  Seq(
+    platformTarget := "android-23",
+    version := "0.1." + androidVersionCode,
+    // scalaVersion          := "2.10.1",
+    versionCode           := androidVersionCode,
+    manifest in Android := scala.xml.XML.loadFile("android/src/main/AndroidManifest.xml"),
+    updateCheck in Android := {}, // disable update check
+    // proguardCache in Android ++= Seq("org.scaloid"),
+    unmanagedClasspath in Test ++= (bootClasspath in Android).value,
+    // proguardOptions in Android ++= Seq(
+    //   "-dontobfuscate",
+    //   "-dontoptimize",
+    //   "-keepattributes Signature",
+    //   "-printseeds target/seeds.txt",
+    //   "-printusage target/usage.txt",
+    //   "-dontwarn scala.collection.**", // required from Scala 2.11.4
+    //   "-dontwarn org.scaloid.**" // this can be omitted if current Android Build target is android-16
+    // ),
+    // platformName in Android   := "android-23",
+    // useProguard in Android    := true,
+    // proguardOption in Android := androidProguard,
+    // keyalias in Android   := "change-me"
+    libraryDependencies ++= Seq(
+      "org.scaloid" %% "scaloid" % "4.1",
+      "org.apache.maven" % "maven-ant-tasks" % "2.1.3" % "test",
+      "org.robolectric" % "robolectric" % "3.0" % "test",
+      "com.novocode" % "junit-interface" % "0.11" % "test"
+    )
   )
-) ++ commonSettings
-// ++ AndroidProject.androidSettings ++
-//   TypedResources.settings ++
-//   AndroidManifestGenerator.settings ++
-//   AndroidMarketPublish.settings ++
 
-updateCheck in Android := {} // disable update check
-proguardCache in Android ++= Seq("org.scaloid")
-
-proguardOptions in Android ++= Seq(
-  "-dontobfuscate",
-  "-dontoptimize",
-  "-keepattributes Signature",
-  "-printseeds target/seeds.txt",
-  "-printusage target/usage.txt",
-  "-dontwarn scala.collection.**", // required from Scala 2.11.4
-  "-dontwarn org.scaloid.**" // this can be omitted if current Android Build target is android-16
-)
-
-lazy val root = (project in file("."))
+lazy val root = (project in file("android"))
   .settings(androidSettings: _*)
-
-unmanagedClasspath in Test ++= (bootClasspath in Android).value

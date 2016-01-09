@@ -1,5 +1,6 @@
 package com.github.fellowship_of_the_bus.draconia
 
+// import android.app.Activity
 import org.scaloid.common._
 import android.os.Bundle
 import android.view.Gravity
@@ -17,15 +18,15 @@ class MainActivity extends SActivity {
     setContentView(
       new SVerticalLayout {
         style {
-          case v => v.id = viewSeq.incrementAndGet          
+          case v => v.id = viewSeq.incrementAndGet
         }
         STextView("Say Hello").gravity(Gravity.CENTER).textSize(16 sp).textColor(Color.BLUE).<<.marginBottom(16 dip).>>
-        val name = SEditText(prefs.String.name).hint("enter your first name").selectAllOnFocus(true)
-        SButton("Greet!", {
-          val who = name.text.toString
-          prefs.name = who
-          alert(telephonyManager.getLine1Number + " Welcomes You", "Hello " + who)
-        })
+        // val name = SEditText(prefs.String.name).hint("enter your first name").selectAllOnFocus(true)
+        // SButton("Greet!", {
+        //   val who = name.text.toString
+        //   prefs.name = who
+        //   alert(telephonyManager.getLine1Number + " Welcomes You", "Hello " + who)
+        // })
       }
     )
   }
