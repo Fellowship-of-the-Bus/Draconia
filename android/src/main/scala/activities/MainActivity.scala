@@ -7,6 +7,8 @@ import android.view.Gravity
 import android.graphics.Color
 import java.util.concurrent.atomic.AtomicInteger
 
+import scala.language.postfixOps
+
 class MainActivity extends SActivity {
   val viewSeq = new AtomicInteger(0)
 
@@ -21,12 +23,12 @@ class MainActivity extends SActivity {
           case v => v.id = viewSeq.incrementAndGet
         }
         STextView("Say Hello").gravity(Gravity.CENTER).textSize(16 sp).textColor(Color.BLUE).<<.marginBottom(16 dip).>>
-        // val name = SEditText(prefs.String.name).hint("enter your first name").selectAllOnFocus(true)
-        // SButton("Greet!", {
-        //   val who = name.text.toString
-        //   prefs.name = who
-        //   alert(telephonyManager.getLine1Number + " Welcomes You", "Hello " + who)
-        // })
+        val name = SEditText(prefs.String.name.getOrElse("No name")).hint("enter your first name").selectAllOnFocus(true)
+        SButton("Greet!", {
+          val who = name.text.toString
+          prefs.name = who
+          alert(telephonyManager.getLine1Number + " Welcomes You", "Hello " + who)
+        })
       }
     )
   }

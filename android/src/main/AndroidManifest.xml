@@ -1,8 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.github.fellowship_of_the_bus.draconia">
   <application
     android:icon="@android:drawable/btn_star_big_on"
-    android:label="Hello"
-    android:debuggable="true">
+    android:label="Hello">
 
     <activity android:label="Hello" android:name=".MainActivity">
       <intent-filter>

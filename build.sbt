@@ -19,6 +19,9 @@ lazy val commonSettings = Seq(
     "-optimize",
     "-Xlint",
     "-Yinline-warnings",
+    "-Yinline",
+    "-Yinline-handlers",
+    "-Ybackend:GenBCode", // until 2.12 to eliminate inline warnings
     "-Yno-adapted-args",
     "-Ywarn-dead-code",
     "-Ywarn-value-discard",
@@ -56,12 +59,10 @@ lazy val androidSettings = commonSettings ++
   Seq(
     platformTarget := "android-23",
     version := "0.1." + androidVersionCode,
-    // scalaVersion          := "2.10.1",
     versionCode           := androidVersionCode,
-    manifest in Android := scala.xml.XML.loadFile("android/src/main/AndroidManifest.xml"),
     updateCheck in Android := {}, // disable update check
-    // proguardCache in Android ++= Seq("org.scaloid"),
     unmanagedClasspath in Test ++= (bootClasspath in Android).value,
+    // proguardCache in Android ++= Seq("org.scaloid"),
     // proguardOptions in Android ++= Seq(
     //   "-dontobfuscate",
     //   "-dontoptimize",
