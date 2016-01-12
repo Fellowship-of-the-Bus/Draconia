@@ -76,6 +76,9 @@ lazy val androidSettings = commonSettings ++
     useProguard in Android    := true,
     // proguardOption in Android := androidProguard,
     // keyalias in Android   := "change-me"
+    packagingOptions in Android := PackagingOptions(
+      pickFirsts = Seq("META-INF/NOTICE", "META-INF/LICENSE")
+    ),
     libraryDependencies ++= Seq(
       "org.scaloid" %% "scaloid" % "4.1",
       "org.apache.maven" % "maven-ant-tasks" % "2.1.3" % "test",
