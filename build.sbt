@@ -45,10 +45,10 @@ lazy val commonSettings = Seq(
 
 val androidVersionCode = Some(1)
 
-val androidProguard = """
-  -target 6
-  -keep class scala.collection.SeqLike { public protected *; }
-"""
+// val androidProguard = """
+//   -target 6
+//   -keep class scala.collection.SeqLike { public protected *; }
+// """
 
 lazy val androidSettings = commonSettings ++
   // AndroidProject.androidSettings ++
@@ -62,18 +62,18 @@ lazy val androidSettings = commonSettings ++
     versionCode           := androidVersionCode,
     updateCheck in Android := {}, // disable update check
     unmanagedClasspath in Test ++= (bootClasspath in Android).value,
-    // proguardCache in Android ++= Seq("org.scaloid"),
-    // proguardOptions in Android ++= Seq(
-    //   "-dontobfuscate",
-    //   "-dontoptimize",
-    //   "-keepattributes Signature",
-    //   "-printseeds target/seeds.txt",
-    //   "-printusage target/usage.txt",
-    //   "-dontwarn scala.collection.**", // required from Scala 2.11.4
-    //   "-dontwarn org.scaloid.**" // this can be omitted if current Android Build target is android-16
-    // ),
+    proguardCache in Android ++= Seq("org.scaloid"),
+    proguardOptions in Android ++= Seq(
+      "-dontobfuscate",
+      "-dontoptimize",
+      "-keepattributes Signature",
+      "-printseeds target/seeds.txt",
+      "-printusage target/usage.txt",
+      "-dontwarn scala.collection.**", // required from Scala 2.11.4
+      "-dontwarn org.scaloid.**" // this can be omitted if current Android Build target is android-16
+    ),
     // platformName in Android   := "android-23",
-    // useProguard in Android    := true,
+    useProguard in Android    := true,
     // proguardOption in Android := androidProguard,
     // keyalias in Android   := "change-me"
     libraryDependencies ++= Seq(
