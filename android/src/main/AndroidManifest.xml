@@ -4,7 +4,7 @@
     android:label="Draconia"
     android:hardwareAccelerated="false">
 
-    <activity android:label="Draconia" android:name=".BattleActivity" android:screenOrientation="landscape">
+    <activity android:label="Draconia" android:name="com.github.fellowship_of_the_bus.draconia.BattleActivity" android:screenOrientation="landscape">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>

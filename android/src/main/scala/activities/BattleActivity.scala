@@ -15,9 +15,6 @@ class BattleActivity extends SActivity {
 
   override def onCreate(savedState: Bundle) {
     super.onCreate(savedState)
-    val prefs = Preferences()
-
-    viewSeq.set(0)
     setContentView(
       new SScrollView {
         <<.fill
@@ -28,7 +25,6 @@ class BattleActivity extends SActivity {
           // }
           // var options = new BitmapFactory.Options();
           // options.inJustDecodeBounds = true;
-
           // SImageView().setImageBitmap(BitmapFactory.decodeResource(getResources, R.drawable.test, options))
           var imageView = SImageView()
           imageView.<<.wrap

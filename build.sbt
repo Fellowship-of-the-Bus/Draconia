@@ -67,10 +67,13 @@ lazy val androidSettings = commonSettings ++
       "-dontobfuscate",
       "-dontoptimize",
       "-keepattributes Signature",
-      "-printseeds target/seeds.txt",
-      "-printusage target/usage.txt",
+      // "-keepattributes InnerClasses",
+      "-keepattributes InnerClasses,EnclosingMethod",
+      "-printseeds android/target/seeds.txt",
+      "-printusage android/target/usage.txt",
+      "-printconfiguration android/target/configuration.txt",
       "-dontwarn scala.collection.**", // required from Scala 2.11.4
-      "-dontwarn org.scaloid.**", // this can be omitted if current Android Build target is android-16
+      // "-dontwarn org.scaloid.**", // this can be omitted if current Android Build target is android-16
       "-dontwarn org.w3c.dom.bootstrap.DOMImplementationRegistry",
       "-dontwarn scala.xml.parsing.MarkupParser"
     ),
