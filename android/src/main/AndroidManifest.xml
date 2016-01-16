@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.github.fellowship_of_the_bus.draconia">
   <application
     android:icon="@drawable/ahmed"
-    android:label="Draconia">
+    android:label="Draconia"
+    android:hardwareAccelerated="false">
 
     <activity android:label="Draconia" android:name=".BattleActivity" android:screenOrientation="landscape">
       <intent-filter>

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.graphics.Color
 import java.util.concurrent.atomic.AtomicInteger
+import android.graphics.BitmapFactory
 
 import scala.language.postfixOps
 
@@ -19,11 +20,21 @@ class BattleActivity extends SActivity {
     viewSeq.set(0)
     setContentView(
       new SScrollView {
-        // style {
-        //   case v => v.id = viewSeq.incrementAndGet
-        // }
+        <<.fill
+        new SHorizontalScrollView {
+          <<.fill
+          // style {
+          //   case v => v.id = viewSeq.incrementAndGet
+          // }
+          // var options = new BitmapFactory.Options();
+          // options.inJustDecodeBounds = true;
 
-        SImageView().backgroundResource = R.drawable.test;
+          // SImageView().setImageBitmap(BitmapFactory.decodeResource(getResources, R.drawable.test, options))
+          var imageView = SImageView()
+          imageView.<<.wrap
+          imageView.background = R.drawable.test
+          // var imageView = SImageView().<<.wrap.background = R.drawable.test
+        }
       }
     )
   }
