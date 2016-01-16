@@ -1,0 +1,17 @@
++ Battle stuff
+  - UI
+
+    Now:
+    * Visual Grid
+      -> Start with it shown
+    * Skill Bar
+    * Actually play
+
+    Later:
+    * Turn order bar
+    * Stat Screen
+
+  - Characters
+  - Skills
+  - Play vs Self
+    * Later Add AI
