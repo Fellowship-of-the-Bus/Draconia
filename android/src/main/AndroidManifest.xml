@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.github.fellowship_of_the_bus.draconia">
   <application
     android:icon="@android:drawable/btn_star_big_on"
-    android:label="Hello">
+    android:label="Draconia">
 
-    <activity android:label="Hello" android:name=".MainActivity">
+    <activity android:label="Draconia" android:name=".MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
