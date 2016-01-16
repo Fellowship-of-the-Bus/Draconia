@@ -57,7 +57,7 @@ lazy val androidSettings = commonSettings ++
   // AndroidMarketPublish.settings ++
   androidBuild ++
   Seq(
-    platformTarget := "android-23",
+    platformTarget := "android-16",
     version := "0.1." + androidVersionCode,
     versionCode           := androidVersionCode,
     updateCheck in Android := {}, // disable update check
@@ -70,7 +70,9 @@ lazy val androidSettings = commonSettings ++
       "-printseeds target/seeds.txt",
       "-printusage target/usage.txt",
       "-dontwarn scala.collection.**", // required from Scala 2.11.4
-      "-dontwarn org.scaloid.**" // this can be omitted if current Android Build target is android-16
+      "-dontwarn org.scaloid.**", // this can be omitted if current Android Build target is android-16
+      "-dontwarn org.w3c.dom.bootstrap.DOMImplementationRegistry",
+      "-dontwarn scala.xml.parsing.MarkupParser"
     ),
     // platformName in Android   := "android-23",
     useProguard in Android    := true,
