@@ -14,16 +14,13 @@ class BattleActivity extends SActivity {
 
   override def onCreate(savedState: Bundle) {
     super.onCreate(savedState)
-    val prefs = Preferences()
-
-    viewSeq.set(0)
     setContentView(
       new SScrollView {
         // style {
         //   case v => v.id = viewSeq.incrementAndGet
         // }
 
-        SImageView().backgroundResource = R.drawable.test;
+        SImageView().background = R.drawable.test
       }
     )
   }
