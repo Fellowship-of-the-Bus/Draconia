@@ -16,11 +16,10 @@ class BattleActivity extends SActivity {
   override def onCreate(savedState: Bundle) {
     super.onCreate(savedState)
     setContentView(
-      new SHorizontalScrollView {
+      new SScrollView {
         <<.fill
-        this += new SScrollView {
+        new SHorizontalScrollView {
           <<.fill
-          fillViewport(true)
           // style {
           //   case v => v.id = viewSeq.incrementAndGet
           // }
