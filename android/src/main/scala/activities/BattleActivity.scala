@@ -3,7 +3,7 @@ package com.github.fellowship_of_the_bus.draconia
 // import android.app.Activity
 import org.scaloid.common._
 import android.os.Bundle
-import android.view.Gravity
+import android.view.{Gravity,Window}
 import android.graphics.Color
 import java.util.concurrent.atomic.AtomicInteger
 import android.graphics.BitmapFactory
@@ -15,6 +15,9 @@ class BattleActivity extends SActivity {
 
   override def onCreate(savedState: Bundle) {
     super.onCreate(savedState)
+    getWindow().requestFeature(Window.FEATURE_ACTION_BAR)
+    getActionBar().hide()
+
     setContentView(
       new SHorizontalScrollView {
         <<.fill
@@ -27,7 +30,7 @@ class BattleActivity extends SActivity {
           // var options = new BitmapFactory.Options();
           // options.inJustDecodeBounds = true;
           // SImageView().setImageBitmap(BitmapFactory.decodeResource(getResources, R.drawable.test, options))
-          var imageView = SImageView()
+          val imageView = SImageView()
           imageView.<<.wrap
           imageView.background = R.drawable.test
           // var imageView = SImageView().<<.wrap.background = R.drawable.test

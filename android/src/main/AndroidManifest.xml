@@ -1,10 +1,13 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.github.fellowship_of_the_bus.draconia">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.github.fellowship_of_the_bus.draconia"
+  android:versionCode="1"
+  android:versionName="1.0">
   <application
     android:icon="@drawable/ahmed"
     android:label="Draconia"
     android:hardwareAccelerated="false">
 
-    <activity android:label="Draconia" android:name="com.github.fellowship_of_the_bus.draconia.BattleActivity" android:screenOrientation="landscape">
+    <activity android:label="Draconia" android:name="BattleActivity" android:screenOrientation="landscape">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
@@ -16,3 +19,4 @@
 
   <uses-sdk android:minSdkVersion="16"/>
 </manifest>
+

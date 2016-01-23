@@ -57,11 +57,13 @@ lazy val androidSettings = commonSettings ++
   // AndroidMarketPublish.settings ++
   androidBuild ++
   Seq(
+    exportJars := true,
     platformTarget := "android-16",
     version := "0.1." + androidVersionCode,
     versionCode           := androidVersionCode,
     updateCheck in Android := {}, // disable update check
     unmanagedClasspath in Test ++= (bootClasspath in Android).value,
+    proguardScala in Android := true,
     proguardCache in Android ++= Seq("org.scaloid"),
     proguardOptions in Android ++= Seq(
       "-dontobfuscate",
