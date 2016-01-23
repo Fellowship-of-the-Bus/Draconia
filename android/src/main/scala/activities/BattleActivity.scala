@@ -19,22 +19,17 @@ class BattleActivity extends SActivity {
     getActionBar().hide()
 
     setContentView(
-      new SHorizontalScrollView {
-        <<.fill
-        this += new SScrollView {
-          <<.fill
-          fillViewport(true)
-          // style {
-          //   case v => v.id = viewSeq.incrementAndGet
-          // }
-          // var options = new BitmapFactory.Options();
-          // options.inJustDecodeBounds = true;
-          // SImageView().setImageBitmap(BitmapFactory.decodeResource(getResources, R.drawable.test, options))
-          val imageView = SImageView()
-          imageView.<<.wrap
-          imageView.background = R.drawable.test
-          // var imageView = SImageView().<<.wrap.background = R.drawable.test
-        }
+      new OmniScrollView {
+        // style {
+        //   case v => v.id = viewSeq.incrementAndGet
+        // }
+        // var options = new BitmapFactory.Options();
+        // options.inJustDecodeBounds = true;
+        // SImageView().setImageBitmap(BitmapFactory.decodeResource(getResources, R.drawable.test, options))
+        val imageView = SImageView()
+        imageView.<<.wrap
+        imageView.background = R.drawable.test
+        // var imageView = SImageView().<<.wrap.background = R.drawable.test
       }
     )
   }
