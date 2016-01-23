@@ -3,7 +3,7 @@ package com.github.fellowship_of_the_bus.draconia
 import org.scaloid.common._
 import android.os.Bundle
 import android.view.Gravity
-
+import android.view.View
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -12,11 +12,13 @@ import android.widget.ScrollView;
 import android.widget.FrameLayout;
 
 class SVScrollView()(implicit context: Context, parentVGroup: TraitViewGroup[_] = null) extends SScrollView() {
-    override def onTouchEvent(ev: MotionEvent) = false
+  override def onTouchEvent(ev: MotionEvent) = false
+
+  disableVerticalScrollBar
 }
 
 class SHScrollView()(implicit context: Context, parentVGroup: TraitViewGroup[_] = null) extends SHorizontalScrollView() {
-    override def onTouchEvent(ev: MotionEvent) = false
+  override def onTouchEvent(ev: MotionEvent) = false
 }
 
 class OmniScrollView()(implicit context: Context, parentVGroup: TraitViewGroup[_] = null) extends SFrameLayout {
@@ -30,7 +32,7 @@ class OmniScrollView()(implicit context: Context, parentVGroup: TraitViewGroup[_
     event.getActionMasked match {
       case MotionEvent.ACTION_DOWN => {
         mx = event.getX
-        mx = event.getY
+        my = event.getY
       }
       case MotionEvent.ACTION_MOVE => {
         val curX = event.getX
@@ -53,5 +55,19 @@ class OmniScrollView()(implicit context: Context, parentVGroup: TraitViewGroup[_
 
   vScroll += hScroll
   this += vScroll
-  
+
+  import scala.language.implicitConversions
+  implicit override def defaultLayoutParams[V <: View](v: V): LayoutParams[V] = v.getLayoutParams() match {
+    case p: LayoutParams[V @unchecked] => p
+    case _ => new LayoutParams(v) {
+      object MyFrameLayout extends SFrameLayout()(context, parentVGroup) {
+        override def +=(v: View) = {
+          OmniScrollView.this.hScroll += v
+          this
+        }
+      }
+
+      override def parent = MyFrameLayout
+    }
+  }
 }
