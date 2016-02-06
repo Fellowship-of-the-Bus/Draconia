@@ -2,14 +2,14 @@ package com.github.fellowship_of_the_bus
 package draconia
 package game
 
-import IDMap._
-import lib.util.rand
-import lib.math.floor
+// import lib.util.rand
+// import lib.math.floor
 
 object Character {
-  def apply(n: String) {
-    var attribute = new Attributes(0,0,0,0,0,0,0,0,0)
-    var growth = new Growth(0,0,0,0,0,0)
+  def rand(i: Int) = 1
+  def apply(n: String): Character = {
+    val attribute = new Attributes(0,0,0,0,0,0,0,0,0)
+    val growth = new Growth(0,0,0,0,0,0)
     // roll random character stats
     var t = rand(3)
     var pool = 0
@@ -32,9 +32,9 @@ object Character {
       }
       pool = pool -1
     }
-    return new Character(n, attribute, growth)
+    new Character(n, attribute, growth)
   }
-} 
+}
 
 class Character (val name: String, val attributes: Attributes, val growth: Growth) {
 
@@ -42,10 +42,10 @@ class Character (val name: String, val attributes: Attributes, val growth: Growt
   var experience = 0
 
   //Equipment
-  var inventory = List[Item]
+  var inventory = List[Item]()
 
   //Skills
-  var skillTree = SkillTree()
+  // var skillTree = SkillTree()
 
   def maxHp () = {
     //some formula

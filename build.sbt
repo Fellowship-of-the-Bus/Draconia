@@ -92,6 +92,7 @@ lazy val androidSettings = commonSettings ++
       "org.robolectric" % "robolectric" % "3.0" % "test",
       "com.novocode" % "junit-interface" % "0.11" % "test"
     ),
+    compile <<= compile in Android,
     run <<= run in Android
   )
 
@@ -103,4 +104,5 @@ lazy val core = (project in file("core"))
 
 lazy val root = (project in file("."))
   .aggregate(core, android)
-  .settings(run <<= run in android)
+  .settings(run in Android := { val x = (compile in core in Compile).value; val y = (run in android in Android).toTask("").value })
+  .settings(run in Compile <<= run in Android)

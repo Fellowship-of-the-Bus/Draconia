@@ -30,15 +30,15 @@ class MeleeSkillTree extends BaseSkillTree {
 }
 class RangedSkillTree extends BaseSkillTree {
 
-} 
+}
 class MagicSkillTree extends BaseSkillTree {
 
 }
 class HealingSkillTree extends BaseSkillTree {
 
 }
-class SkillTree(val meleeSkillTree: MeleeSkillTree, val rangedSkillTree: RangedSkillTree
-                val magicSkillTree: MagicSkillTree, val healingSkillTree: healingSkillTree) {
+class SkillTree(val meleeSkillTree: MeleeSkillTree, val rangedSkillTree: RangedSkillTree,
+                val magicSkillTree: MagicSkillTree, val healingSkillTree: HealingSkillTree) {
 
 }
 class MasteryLevels() {

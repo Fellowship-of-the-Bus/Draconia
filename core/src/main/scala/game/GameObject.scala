@@ -1,8 +1,7 @@
 package com.github.fellowship_of_the_bus
 package draconia
 package game
-import IDMap._
-import lib.game.GameConfig.{Width}
+// import lib.game.GameConfig.{Width}
 
 abstract class GameObject(xc: Float, yc: Float) {
   var x = xc
