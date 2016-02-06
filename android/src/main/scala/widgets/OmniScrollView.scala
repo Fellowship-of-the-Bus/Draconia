@@ -14,11 +14,13 @@ import android.widget.FrameLayout;
 class SVScrollView()(implicit context: Context, parentVGroup: TraitViewGroup[_] = null) extends SScrollView() {
   override def onTouchEvent(ev: MotionEvent) = false
 
-  disableVerticalScrollBar
+  disableVerticalScrollBar()
 }
 
 class SHScrollView()(implicit context: Context, parentVGroup: TraitViewGroup[_] = null) extends SHorizontalScrollView() {
   override def onTouchEvent(ev: MotionEvent) = false
+
+  disableHorizontalScrollBar()
 }
 
 class OmniScrollView()(implicit context: Context, parentVGroup: TraitViewGroup[_] = null) extends SFrameLayout {
