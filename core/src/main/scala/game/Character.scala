@@ -1,28 +1,46 @@
 package com.github.fellowship_of_the_bus
 package draconia
 package game
-import org.newdawn.slick.{AppGameContainer, GameContainer, Graphics, SlickException,Color, Input}
-import org.newdawn.slick.state.{BasicGameState, StateBasedGame}
 
 import IDMap._
-import lib.game.GameConfig.{Height,Width}
 import lib.util.rand
 import lib.math.floor
 
-class Character (n: String) {
+object Character {
+  def apply(n: String) {
+    var attribute = new Attributes(0,0,0,0,0,0,0,0,0)
+    // roll random character stats
+    var t = rand(3)
+    var pool = 0
+    if (t == 0) {
+      pool = 50
+    } else if ( t == 1) {
+      pool = 60
+    } else if (t == 2) {
+      pool = 70
+    }
+    while (pool > 0) {
+      t = rand(6)
+      t match {
+        case 0 => attribute.strength = attribute.strength+1
+        case 1 => attribute.intelligence = attribute.intelligence+1
+        case 2 => attribute.speed = attribute.speed+1
+        case 3 => attribute.health = attribute.health+10
+        case 4 => attribute.physicalDefense = attribute.physicalDefense+1
+        case 5 => attribute.magicDefense = attribute.magicDefense+1
+      }
+      pool = pool -1
+    }
+    return new Character(n, attribute)
+  }
+} 
+
+class Character (n: String, attr: Attributes) {
 
   var level = 1
   var experience = 0
   var name = n
   //base stats
-  var strength = 0
-  var intelligence = 0
-  var speed = 0
-  var dexterity = 0
-  var health = 0
-  var mana = 0
-  var physdef = 0
-  var magdef = 0
 
   //growth rates
   var strGrowth = 0
