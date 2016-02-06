@@ -1,56 +1,51 @@
 package com.github.fellowship_of_the_bus
-package draconia.game
+package draconia
+package game
 
-// A mapping of skills to numbers
-object SkillID {
-  // val fire = 0
-  // val water = 1
-  // val earth = 2
-  // val wind = 3
-  // val light = 4
-  // val dark = 5
-  // val oneHand = 6
-  // val shield = 7
-  // val twoHand = 8
-  // val bow = 9
+Trait SkillID
+Trait PassiveSkillID extends SkillID
+Trait ActiveSkillID extends SkillID
+
+case class BasicMeleeID extends ActiveSkillID
+case class BasicPassiveID extends PassiveSkillID 
+
+
+class Skill(val id: SkillID) {
 }
 
-object SkillTree {
+class PassiveSkill (sid: PassiveSkillID) extends Skill(sid) {
 
 }
 
-class BaseSkillTree {
-  def apply() {
-    new SkillTree(new MeleeSkillTree, new RangedSkillTree, new MagicSkillTree, new HealingSkillTree)
+class ActiveSkill(sid: ActiveSkillID) extends Skill(sid) {
+
+  //takes 1 x,y map coord, character
+  def action(x: Int, y:Int, c: Character): Unit
+
+  def ignoreLOS: Boolean
+  def range: Int
+
+  // if both true, then anything on the tile works
+  // if neither, then tile must be empty
+  def allowAlly: Boolean
+  def allowEnemy: Boolean
+
+  //takes 2 x,y map coords
+  def canTarget(xOrigin: Int, yOrigin: Int, xTarget: Int, yTarget: Int): Boolean = {
+    //check range and line of sight
+    // then check character type in the tile.
   }
 }
 
-class MeleeSkillTree extends BaseSkillTree {
+object BasicMeleeSkill extends ActiveSkill(BasicMeleeID) {
+  def ignoreLOS = true
+  def range = 1
 
-}
-class RangedSkillTree extends BaseSkillTree {
+  def allowAlly = false
+  def allowEnemy = true
 
-} 
-class MagicSkillTree extends BaseSkillTree {
-
-}
-class HealingSkillTree extends BaseSkillTree {
-
-}
-class SkillTree(val meleeSkillTree: MeleeSkillTree, val rangedSkillTree: RangedSkillTree
-                val magicSkillTree: MagicSkillTree, val healingSkillTree: healingSkillTree) {
-
-}
-class MasteryLevels() {
-  var levels = new Array[Int](10)
-
-  // Return an array of stat bonuses from masteries
-  def getStats() {
-
-  }
-
-  // Return a list of skills granted through masteries
-  def getSkills() {
+  def action(x: Int, y: Int, c: Character) = {
 
   }
 }
+
