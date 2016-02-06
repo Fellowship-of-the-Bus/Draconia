@@ -91,8 +91,16 @@ lazy val androidSettings = commonSettings ++
       "org.apache.maven" % "maven-ant-tasks" % "2.1.3" % "test",
       "org.robolectric" % "robolectric" % "3.0" % "test",
       "com.novocode" % "junit-interface" % "0.11" % "test"
-    )
+    ),
+    run <<= run in Android
   )
 
-lazy val root = (project in file("android"))
+lazy val android = (project in file("android"))
   .settings(androidSettings: _*)
+
+lazy val core = (project in file("core"))
+  .settings(commonSettings: _*)
+
+lazy val root = (project in file("."))
+  .aggregate(core, android)
+  .settings(run <<= run in android)
