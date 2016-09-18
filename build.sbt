@@ -1,9 +1,25 @@
-import android.Keys._
+val os = System.getProperty("os.name").split(" ")(0).toLowerCase match {
+  case "linux" => "linux"
+  case "mac" => "macosx"
+  case "windows" => "windows"
+  case "sunos" => "solaris"
+  case x => x
+}
+
+val separator = System.getProperty("os.name").split(" ")(0).toLowerCase match {
+  case "linux" => ":"
+  case "mac" => ":"
+  case "windows" => ";"
+  case "sunos" => ":"
+  case x => ":"
+}
 
 lazy val commonSettings = Seq(
-  name := "draconia",
+  name := "Draconia",
   organization := "com.github.fellowship_of_the_bus",
-  scalaVersion := "2.11.7",
+  scalaVersion := "2.11.8",
+  version := "1.0",
+  fork := true,
   javacOptions ++= Seq(
     "-encoding", "utf8",
     "-source", "1.7",
@@ -27,6 +43,9 @@ lazy val commonSettings = Seq(
     "-Ywarn-value-discard",
     "-Ywarn-unused"
   ),
+  javaOptions ++= Seq(
+    s"-Djava.library.path=${System.getProperty("java.library.path")}${separator}./src/main/resources/natives/${os}"
+  ),
   resolvers ++= Seq(
     "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
     Resolver.url(
@@ -37,72 +56,13 @@ lazy val commonSettings = Seq(
   libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "2.2.6" % "test",
     "junit" % "junit" % "4.12" % "test",
-    "com.propensive" %% "rapture-json-jackson" % "2.0.0-M3"
-    // "com.github.pathikrit" %% "better-files" % "2.14.0",
-    // "com.github.fellowship_of_the_bus" %% "fellowship-of-the-bus-lib" % "0.3-SNAPSHOT" changing()
+    "com.propensive" %% "rapture-json-jackson" % "2.0.0-M5",
+    "com.github.pathikrit" %% "better-files" % "2.16.0",
+    "com.github.fellowship_of_the_bus" %% "fellowship-of-the-bus-slick2d-lib" % "0.1-SNAPSHOT" changing(),
+    "com.github.fellowship_of_the_bus" %% "fellowship-of-the-bus-lib" % "0.4-SNAPSHOT" changing(),
+    "org.jbox2d" % "jbox2d-library" % "2.2.1.1"
   )
 )
 
-val androidVersionCode = Some(1)
-
-// val androidProguard = """
-//   -target 6
-//   -keep class scala.collection.SeqLike { public protected *; }
-// """
-
-lazy val androidSettings = commonSettings ++
-  // AndroidProject.androidSettings ++
-  // TypedResources.settings ++
-  // AndroidManifestGenerator.settings ++
-  // AndroidMarketPublish.settings ++
-  androidBuild ++
-  Seq(
-    exportJars := true,
-    platformTarget := "android-16",
-    version := "0.1." + androidVersionCode,
-    versionCode           := androidVersionCode,
-    updateCheck in Android := {}, // disable update check
-    unmanagedClasspath in Test ++= (bootClasspath in Android).value,
-    proguardScala in Android := true,
-    proguardCache in Android ++= Seq("org.scaloid"),
-    proguardOptions in Android ++= Seq(
-      "-dontobfuscate",
-      "-dontoptimize",
-      "-keepattributes Signature",
-      // "-keepattributes InnerClasses",
-      "-keepattributes InnerClasses,EnclosingMethod",
-      "-printseeds android/target/seeds.txt",
-      "-printusage android/target/usage.txt",
-      "-printconfiguration android/target/configuration.txt",
-      "-dontwarn scala.collection.**", // required from Scala 2.11.4
-      // "-dontwarn org.scaloid.**", // this can be omitted if current Android Build target is android-16
-      "-dontwarn org.w3c.dom.bootstrap.DOMImplementationRegistry",
-      "-dontwarn scala.xml.parsing.MarkupParser"
-    ),
-    // platformName in Android   := "android-23",
-    useProguard in Android    := true,
-    // proguardOption in Android := androidProguard,
-    // keyalias in Android   := "change-me"
-    packagingOptions in Android := PackagingOptions(
-      pickFirsts = Seq("META-INF/NOTICE", "META-INF/LICENSE")
-    ),
-    libraryDependencies ++= Seq(
-      "org.scaloid" %% "scaloid" % "4.1",
-      "org.apache.maven" % "maven-ant-tasks" % "2.1.3" % "test",
-      "org.robolectric" % "robolectric" % "3.0" % "test",
-      "com.novocode" % "junit-interface" % "0.11" % "test"
-    ),
-    compile <<= compile in Android,
-    run <<= run in Android
-  )
-
-lazy val android = (project in file("android"))
-  .settings(androidSettings: _*)
-
-lazy val core = (project in file("core"))
-  .settings(commonSettings: _*)
-
 lazy val root = (project in file("."))
-  .aggregate(core, android)
-  .settings(run in Android := { val x = (compile in core in Compile).value; val y = (run in android in Android).toTask("").value })
-  .settings(run in Compile <<= run in Android)
+  .settings(commonSettings: _*)
